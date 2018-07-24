@@ -1,0 +1,17 @@
+{
+  "name": "koa-rest",
+  "version": "1.0.0",
+  "description": "Proof of concept RESTful API using koa.js",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^6.0.1",
+    "koa": "^2.5.1",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0"
+  }
+}
