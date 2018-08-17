@@ -1,5 +1,29 @@
 'use strict';
 
+const dblow = require('lowdb');
+const FileAsync = require('lowdb/adapters/FileAsync');
+
+const config = require('../config.json');
+
+const adapter = new FileAsync(config.dbjson, {
+    defaults: { posts: [], users: [] }
+});
+
+const db = dblow(adapter);
+
+db.then(db => db._.mixin({
+    select: function (array, ...properties) {
+        return array.map(function(elem) {
+            let obj = {}
+            for (const prop of properties)
+                obj[prop] = elem[prop];
+            return obj;
+        });
+    }
+}));
+
+module.exports = db;
+
 const data = {
     users: [
         {
@@ -12,10 +36,10 @@ const data = {
         },
         {
             name: 'trace',
-            email: 'trace@mail.com'  
+            email: 'trace@mail.com'
         },
         {
-            name: 'bob', 
+            name: 'bob',
             email: 'bob@mail.com'
         }
     ],
@@ -75,26 +99,4 @@ const data = {
             text: 'Some asm basics.',
         }
     ]
-};
-
-
-module.exports.find = function (collection, criteria) {
-    if(Number.isFinite(criteria)) {
-        return data[collection][criteria];
-    } else {
-        let filters = Object.entries(criteria);
-        return data[collection].filter(elem => 
-            filters.every(([field, value]) => elem[field] === value));
-    }
-};
-
-module.exports.save = function (collection, object) {
-    data[collection].push(object);
-};
-
-module.exports.delete = function (collection, criteria) {
-    module.exports.find(criteria)
-        .map(elem => data[collection].indexOf(elem))
-        .filter(index => index >= 0)
-        .forEach(index => data[collection].splice(index, 1));
 };

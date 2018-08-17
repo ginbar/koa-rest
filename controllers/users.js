@@ -8,8 +8,9 @@ module.exports.all = function (ctx) {
 };
 
 
-module.exports.posts = function (ctx) {
-    ctx.response.body =  db
-        .find('posts', { user: ctx.params.name })
-        .map(post => ({ title: post.title }));    
+module.exports.posts = async function (ctx) {
+    ctx.response.body = await ctx.db.get('posts')
+        .filter({ user: ctx.params.name })
+        .select('title')
+        .value();
 };

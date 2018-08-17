@@ -4,8 +4,14 @@ const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const config = require('../config.json');
 const router = require('./routes');
+const db = require('./db');
 
 const app = new Koa();
+
+app.use(async (ctx, next) => {
+    ctx.db = await db;
+    await next();
+});
 
 app.use(bodyParser());
 
