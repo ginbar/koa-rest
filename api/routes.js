@@ -2,8 +2,8 @@
 
 const Router = require('koa-router');
 
-const posts = require('./posts');
-const users = require('./users');
+const posts = require('../controllers/posts');
+const users = require('../controllers/users');
 
 const router = new Router();
 

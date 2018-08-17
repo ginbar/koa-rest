@@ -1,6 +1,6 @@
 'use strict';
 
-const db = require('./db');
+const db = require('../api/db');
 
 
 module.exports.all = function (ctx) {

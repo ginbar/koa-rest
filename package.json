@@ -4,7 +4,7 @@
   "description": "Proof of concept RESTful API using koa.js",
   "main": "server.js",
   "scripts": {
-    "test": "node server.js"
+    "test": "node api/server.js"
   },
   "author": "",
   "license": "ISC",

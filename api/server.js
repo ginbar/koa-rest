@@ -2,7 +2,7 @@
 
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
-const config = require('./config.json');
+const config = require('../config.json');
 const router = require('./routes');
 
 const app = new Koa();
