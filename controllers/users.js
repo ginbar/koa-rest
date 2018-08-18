@@ -3,14 +3,16 @@
 const db = require('../api/db');
 
 
-module.exports.all = function (ctx) {
-    ctx.response.body = db.find('users', {});
+module.exports.all = async function (ctx) {
+    ctx.response.body = await ctx.db.get('users')
+        .select('name')
+        .value();
 };
 
 
 module.exports.posts = async function (ctx) {
-    ctx.response.body = await ctx.db.get('posts')
+    ctx.response.body = await ctx.db.get('users')
         .filter({ user: ctx.params.name })
-        .select('title')
+        .select('id', 'title')
         .value();
 };
