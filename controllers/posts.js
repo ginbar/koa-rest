@@ -1,7 +1,7 @@
 'use strict';
 
 
-module.exports.all = async function (ctx) {
+module.exports.list = async function (ctx) {
     ctx.response.body = await ctx.db.get('posts')
         .select('id', 'title', 'user')
         .value();

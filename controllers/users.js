@@ -1,11 +1,16 @@
 'use strict';
 
-const db = require('../api/db');
 
-
-module.exports.all = async function (ctx) {
+module.exports.list = async function (ctx) {
     ctx.response.body = await ctx.db.get('users')
         .select('name')
+        .value();
+};
+
+
+module.exports.fetch = function (ctx) {
+    ctx.response.body = await ctx.db.get('users')
+        .find({ name: ctx.params.name })
         .value();
 };
 
