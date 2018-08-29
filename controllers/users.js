@@ -8,7 +8,7 @@ module.exports.list = async function (ctx) {
 };
 
 
-module.exports.fetch = function (ctx) {
+module.exports.fetch = async function (ctx) {
     ctx.response.body = await ctx.db.get('users')
         .find({ name: ctx.params.name })
         .value();
@@ -16,7 +16,7 @@ module.exports.fetch = function (ctx) {
 
 
 module.exports.posts = async function (ctx) {
-    ctx.response.body = await ctx.db.get('users')
+    ctx.response.body = await ctx.db.get('posts')
         .filter({ user: ctx.params.name })
         .select('id', 'title')
         .value();

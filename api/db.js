@@ -6,7 +6,7 @@ const id = require('lodash-id');
 const config = require('../config.json');
 
 const adapter = new FileAsync(config.dbjson, {
-    defaults: { posts: [], users: [] }
+    defaultValue: { posts: [], users: [], comments: [] }
 });
 
 const db = dblow(adapter);
