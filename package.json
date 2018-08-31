@@ -4,7 +4,7 @@
   "description": "Proof of concept RESTful API using koa.js",
   "main": "server.js",
   "scripts": {
-    "test": "node api/server.js"
+    "server": "node api/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,5 +15,8 @@
     "koa-router": "^7.4.0",
     "lodash-id": "^0.14.0",
     "lowdb": "^1.0.0"
+  },
+  "devDependencies": {
+    "frisby": "^2.1.0"
   }
 }
