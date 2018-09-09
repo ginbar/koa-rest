@@ -9,21 +9,30 @@ const comments = require('../controllers/comments');
 const router = new Router();
 
 // users
-router.get('/users', users.list);
-router.get('/users/:name', users.fetch);
-router.get('/users/:name/posts', users.posts);
+router
+    .options('/users', users.options)
+    .get('/users', users.list)
+    // TODO Allow options to every url?
+    // .options('/users/:name', )  
+    .get('/users/:name', users.fetch)
+    .get('/users/:name/posts', users.posts);
 
 // posts
-router.get('/posts', posts.list);
-router.put('/posts', posts.add);
-router.get('/posts/:id', posts.fetch);
-router.post('/posts/:id', posts.modify)
-router.delete('/posts/:id', posts.remove);
+router
+    .options('/posts', posts.options)
+    .get('/posts', posts.list)
+    .post('/posts', posts.add)
+    .get('/posts/:id', posts.fetch)
+    // .put('/posts:id', posts.replace) // Does it make any sense?
+    .patch('/posts/:id', posts.modify)
+    .delete('/posts/:id', posts.remove);
 
-//comments
-router.get('/comments', comments.list);
-router.get('/comments/:id', comments.fetch);
-router.put('/posts/:id/comments', comments.add);
-router.get('/posts/:id/comments', posts.comments);
+// comments
+router
+    .get('/comments', comments.list)
+    .options('/comments', comments.options)
+    .get('/comments/:id', comments.fetch)
+    .post('/posts/:id/comments', comments.add)
+    .get('/posts/:id/comments', comments.byPost);
 
 module.exports = router;
