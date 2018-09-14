@@ -1,6 +1,12 @@
 'use strict';
 
 
+module.exports.options = async function (ctx) {
+    ctx.set('Allow', ['OPTIONS', 'GET', 'POST', 'PATCH', 'PUT', 'DELETE']);
+    ctx.response.status = 200;
+}
+
+
 module.exports.list = async function (ctx) {
     ctx.response.body = await ctx.db.get('posts')
         .select('id', 'title', 'user')
@@ -20,8 +26,8 @@ module.exports.add = async function (ctx) {
         .upsert(ctx.request.body)
         .write()
         .id;
-    ctx.response.headers['Location'] = `/posts/${id}`;
-    ctx.response.status = 201; 
+    ctx.set('Location', `/posts/${id}`);
+    ctx.response.status = 201;
 }
 
 

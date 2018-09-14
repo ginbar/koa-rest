@@ -1,6 +1,11 @@
 'use strict';
 
 
+module.exports.options = async function (ctx) {
+    ctx.response.headers['Allow'] = ['GET', 'POST'];
+}
+
+
 module.exports.list = async function (ctx) {
     ctx.response.body = await ctx.db.get('comments')
         .select('user', 'post')

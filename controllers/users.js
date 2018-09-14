@@ -1,6 +1,10 @@
 'use strict';
 
 
+module.exports.options = async function (ctx) {
+    
+}
+
 module.exports.list = async function (ctx) {
     ctx.response.body = await ctx.db.get('users')
         .select('name')

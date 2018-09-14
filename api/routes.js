@@ -12,7 +12,7 @@ const router = new Router();
 router
     .options('/users', users.options)
     .get('/users', users.list)
-    // TODO Allow options to every url?
+    // TODO Allow options on every url?
     // .options('/users/:name', )  
     .get('/users/:name', users.fetch)
     .get('/users/:name/posts', users.posts);
@@ -29,8 +29,8 @@ router
 
 // comments
 router
-    .get('/comments', comments.list)
     .options('/comments', comments.options)
+    .get('/comments', comments.list)
     .get('/comments/:id', comments.fetch)
     .post('/posts/:id/comments', comments.add)
     .get('/posts/:id/comments', comments.byPost);
