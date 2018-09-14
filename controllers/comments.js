@@ -2,7 +2,8 @@
 
 
 module.exports.options = async function (ctx) {
-    ctx.response.headers['Allow'] = ['GET', 'POST'];
+    ctx.set('Allow', ['OPTIONS', 'GET', 'POST']);
+    ctx.response.status = 200;
 }
 
 
@@ -22,11 +23,10 @@ module.exports.fetch = async function (ctx) {
 
 module.exports.add = async function (ctx) {
     ctx.response.body.post = ctx.params.id;
-    const id = await ctx.db.get('comments')
+    const { id } = await ctx.db.get('comments')
         .upsert(ctx.response.body)
-        .write()
-        .id;
-    ctx.response.headers['Location'] = `/comments/${id}`;
+        .write();
+    ctx.set('Location', `/comments/${id}`);
     ctx.response.status = 201;
 }
 

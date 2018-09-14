@@ -9,7 +9,6 @@ describe('posts', function () {
     it('allowed methods should be options, get, post, patch, put and delete', function (done) {
         return frisby
             .fetch(`${url}/posts`, { method: 'OPTIONS' })
-            .then(res => console.log(res.headers))
             .expect('status', 200)
             .inspectHeaders()
             .expect('header', 'Allow', 'OPTIONS,GET,POST,PATCH,PUT,DELETE')
@@ -81,7 +80,7 @@ describe('posts', function () {
     it('delete response status should be 200', function (done) {
         return frisby
             .post(`${url}/posts`, { user: 'user', title: 'title' })
-            .then(res => frisby.delete(`${url}/${res.headers.location}`))
+            .then(res => frisby.delete(`${url}${res.headers.get('location')}`))
             .expect('status', 200)
             .done(done);
     });

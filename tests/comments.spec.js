@@ -6,18 +6,26 @@ const url = `http://localhost:${config.port}`;
 
 describe('comments', function () {
 
-    
-
-    it('should return all posts', function () {
+    it('allowed methods should be options, get and post', function (done) {
         return frisby
-            .get(`${url}/comments/`)
+            .fetch(`${url}/comments`, { method: 'OPTIONS' })
             .expect('status', 200)
-            .expect('json', 'length', 0)
-            // .expect('jsonTypes', '*', {
-            //     user: Joi.string(),
-            //     post: Joi.string()
-            // });
-            
+            .expect('header', 'Allow', 'OPTIONS,GET,POST')
+            .inspectHeaders()
+            .done(done);
     });
+
+
+    // it('should return all comments with', function (done) {
+    //     return frisby
+    //         .get(`${url}/comments`)
+    //         .expect('status', 200)
+    //         .expect('jsonTypes', '*', {
+    //             // id: Joi.string(),
+    //             user: Joi.string(),
+    //             post: Joi.string()
+    //         })
+    //         .done(done);
+    // });
 
 });

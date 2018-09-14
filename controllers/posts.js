@@ -22,10 +22,9 @@ module.exports.fetch = async function (ctx) {
 
 
 module.exports.add = async function (ctx) {
-    const id = await ctx.db.get('posts')
+    const { id } = await ctx.db.get('posts')
         .upsert(ctx.request.body)
-        .write()
-        .id;
+        .write();
     ctx.set('Location', `/posts/${id}`);
     ctx.response.status = 201;
 }

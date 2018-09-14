@@ -2,8 +2,10 @@
 
 
 module.exports.options = async function (ctx) {
-    
+    ctx.set('Allow', ['OPTIONS', 'GET']);
+    ctx.response.status = 200;
 }
+
 
 module.exports.list = async function (ctx) {
     ctx.response.body = await ctx.db.get('users')
