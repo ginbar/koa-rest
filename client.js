@@ -1,14 +1,14 @@
 'use strict';
 
 const http = require('http');
-const config = require('./config.json');
+const { development: config } = require('./config');
 
 
 request('get', '/posts');
 request('get', '/users/bob/posts');
 request('get', '/posts/3');
 // request('put', '/posts', { user: 'bob', title: 'Another post by Bob' });
-request('get', '/comments');
+request('get', '/comments?sort=date&latest=2');
 
 function request(method, path, data) {
     let req = http.request({

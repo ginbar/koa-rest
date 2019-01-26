@@ -1,6 +1,6 @@
 const frisby = require('frisby');
 const Joi = frisby.Joi;
-const config = require('../config.json');
+const { development: config } = require('../config');
 
 const url = `http://localhost:${config.port}`;
 

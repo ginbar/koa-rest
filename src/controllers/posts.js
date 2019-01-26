@@ -7,11 +7,22 @@ module.exports.options = async function (ctx) {
 }
 
 
+
 module.exports.list = async function (ctx) {
-    ctx.response.body = await ctx.db.get('posts')
-        .select('id', 'title', 'user')
-        .value();
+    let query = ctx.db.get('posts')
+        .select('id', 'title', 'user');
+
+    const { sort, latest } = ctx.request.query;
+    
+    if (sort)
+        query = query.orderBy([sort]);
+
+    if (latest)
+        query = query.takeRight(Number.parseInt(latest));
+
+    ctx.response.body = await query.value();
 }
+
 
 
 module.exports.fetch = async function (ctx) {
@@ -19,6 +30,7 @@ module.exports.fetch = async function (ctx) {
         .getById(ctx.params.id)
         .value();
 }
+
 
 
 module.exports.add = async function (ctx) {
@@ -30,6 +42,7 @@ module.exports.add = async function (ctx) {
 }
 
 
+
 module.exports.modify = async function (ctx) {
     await ctx.db.get('posts')
         .updateById(ctx.params.id, ctx.request.body)
@@ -38,12 +51,14 @@ module.exports.modify = async function (ctx) {
 }
 
 
+
 module.exports.replace = async function (ctx) {
     await ctx.db.get('posts')
         .replaceById(ctx.params.id, ctx.request.body)
         .write();
     ctx.response.status = 201;
 }
+
 
 
 module.exports.remove = async function (ctx) {

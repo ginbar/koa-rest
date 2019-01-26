@@ -4,7 +4,8 @@
   "description": "Proof of concept RESTful API using koa.js",
   "main": "server.js",
   "scripts": {
-    "server": "node api/server.js",
+    "start": "node src/api/server.js development",
+    "heroku": "node src/api/server.js heroku",
     "test": "jest"
   },
   "author": "",

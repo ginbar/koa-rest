@@ -7,11 +7,22 @@ module.exports.options = async function (ctx) {
 }
 
 
+
 module.exports.list = async function (ctx) {
-    ctx.response.body = await ctx.db.get('comments')
-        .select('user', 'post')
-        .value();
+    let query = ctx.db.get('comments')
+        .select('user', 'post', 'text', 'date');
+
+    const { sort, latest } = ctx.request.query;
+
+    if (sort)
+        query = query.orderBy([sort]);
+
+    if (latest)
+        query = query.takeRight(Number.parseInt(latest));
+
+    ctx.response.body = await query.value();
 }
+
 
 
 module.exports.fetch = async function (ctx) {
@@ -19,6 +30,7 @@ module.exports.fetch = async function (ctx) {
         .getById(ctx.params.id)
         .value();
 }
+
 
 
 module.exports.add = async function (ctx) {
@@ -31,9 +43,10 @@ module.exports.add = async function (ctx) {
 }
 
 
+
 module.exports.byPost = async function (ctx) {
     ctx.response.body = await ctx.db.get('comments')
-        .find({ post: ctx.params.id })
-        .select('title', 'user')
+        .filter({ idPost: Number.parseInt(ctx.params.id) })
+        .select('user', 'text', 'date', 'responses')
         .value();
 }

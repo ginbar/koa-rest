@@ -6,29 +6,26 @@ const posts = require('../controllers/posts');
 const users = require('../controllers/users');
 const comments = require('../controllers/comments');
 
+
 const router = new Router();
 
-// users
 router
+
+    // users
     .options('/users', users.options)
     .get('/users', users.list)
-    // TODO Allow options on every url?
-    // .options('/users/:name', )  
     .get('/users/:name', users.fetch)
-    .get('/users/:name/posts', users.posts);
+    .get('/users/:name/posts', users.posts)
 
-// posts
-router
+    // posts
     .options('/posts', posts.options)
     .get('/posts', posts.list)
     .post('/posts', posts.add)
     .get('/posts/:id', posts.fetch)
-    // .put('/posts:id', posts.replace) // Does it make any sense?
     .patch('/posts/:id', posts.modify)
-    .delete('/posts/:id', posts.remove);
+    .delete('/posts/:id', posts.remove)
 
-// comments
-router
+    // comments
     .options('/comments', comments.options)
     .get('/comments', comments.list)
     .get('/comments/:id', comments.fetch)
