@@ -9,7 +9,7 @@ const config = require('../../config')[MODE];
 
 
 
-module.exports = function (ctx, next) {
+module.exports = function () {
 
     const db = dblow(new FileAsync(config.dbjson, {
         defaultValue: { posts: [], users: [], comments: [] }

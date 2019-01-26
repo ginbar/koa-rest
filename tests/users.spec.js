@@ -1,8 +1,10 @@
 const frisby = require('frisby');
 const Joi = frisby.Joi;
-const config = require('../config.json');
+const config = require('../config')['development'];
 
 const url = `http://localhost:${config.port}`;
+
+
 
 describe('users', function () {
 
@@ -15,6 +17,7 @@ describe('users', function () {
     });
 
 
+
     it('should return all users with name', function (done) {
         return frisby
             .get(`${url}/users`)
@@ -24,6 +27,7 @@ describe('users', function () {
             })
             .done(done);
     });
+
 
 
     it('get with name should return an user', function (done) {
@@ -39,10 +43,10 @@ describe('users', function () {
     });
 
 
+    
     it('should return all posts by an user', function (done) {
-        const name = 'bob';
         return frisby
-            .get(`${url}/users/${name}/posts`)
+            .get(`${url}/users/bob/posts`)
             .expect('status', 200)
             .expect('jsonTypes', '*', {
                 title: Joi.string(),
