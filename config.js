@@ -6,7 +6,7 @@ module.exports = {
     },
   
     heroku: {
-        port: process.cwd.PORT || 80,
+        port: process.cwd.PORT,
         dbjson: "data/data.json"
     }
     

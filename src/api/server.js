@@ -17,9 +17,9 @@ const app = new Koa();
 
 app.use(compress())
     .use(cors())
-    .use(db())
     .use(bodyParser())
     .use(logger())
+    .use(db())
     .use(router.routes())
     .use(router.allowedMethods());
 
