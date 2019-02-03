@@ -72,4 +72,19 @@ describe('comments', function () {
             .done(done);
     });
 
+
+
+    it('should return the lastest five comments', function (done) {
+        return frisby
+            .get(`${url}/comments?sort=date&latest=5`)
+            .expect('status', 200)
+            .expect('jsonTypes', '*', {
+                user: Joi.string(),
+                post: Joi.string(),
+                text: Joi.string()
+            })
+            .expect('json', 'length', 5)
+            .done(done);
+    });
+
 });

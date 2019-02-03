@@ -1,17 +1,14 @@
 'use strict';
 
-const MODE = process.argv[2] || 'development';
-
 const dblow = require('lowdb');
 const FileAsync = require('lowdb/adapters/FileAsync');
 const id = require('lodash-id');
-const config = require('../../config')[MODE];
 
 
 
-module.exports = function () {
+module.exports = function (path) {
 
-    const db = dblow(new FileAsync(config.dbjson, {
+    const db = dblow(new FileAsync(path, {
         defaultValue: { posts: [], users: [], comments: [] }
     }));
     
